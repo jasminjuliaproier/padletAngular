@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Padlet, User} from '../shared/padlet';
 import {Entrie} from "../shared/entrie";
+import {PadletService} from "../shared/padlet.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -8,23 +10,22 @@ import {Entrie} from "../shared/entrie";
   styles: [
   ]
 })
+
+
 export class PadletDetailsComponent implements OnInit {
-  @Input() padlet: Padlet | undefined;
-  @Output() showListEvent= new EventEmitter<any>();
 
-  showPadletList(){
-    this.showListEvent.emit();
-  }
 
-  entries: Entrie[] = [];
+padlet: Padlet | undefined;
+entries: Entrie[] = [];
+  constructor(
+    private bs: PadletService,
+    private route: ActivatedRoute
+              ) {}
+
+
   ngOnInit() {
-    this.entries = [
-      new Entrie(1,
-        new User(1,'Jasmin', 'Proier', 'test@test.at', 'secret', 'https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png'),
-        new Padlet(1,
-          'Padlet 1', true,
-          new User(1,'Jasmin', 'Proier', 'test@test.at', 'secret', 'https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png')),"Ich bin ein Content",
-        "Ich bin ein content"),
-    ]
+    const params = this.route.snapshot.params;
+    this.padlet = this.bs.getSinglePadlet(params['id']);
+    this.entries = this.bs.getAllEntries(params['id']);
   }
 }
