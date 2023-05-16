@@ -11,15 +11,16 @@ export class PadletListComponent implements OnInit{
 
   padlets: Padlet[] = [];
 
-  @Output() showDetailsEvent = new EventEmitter<Padlet>();
+  /*@Output() showDetailsEvent = new EventEmitter<Padlet>();*/
   constructor(private bs: PadletService) {}
 
   ngOnInit() {
     this.padlets = this.bs.getAllPadlets();
   }
 
+  /*
   showDetails(padlet:Padlet) {
     this.showDetailsEvent.emit(padlet)
-  }
+  }*/
 
 }
