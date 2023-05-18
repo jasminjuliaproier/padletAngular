@@ -4,7 +4,7 @@
   <div class="header">{{ padlet?.name }}</div>
   <div class="metadata">
 
-    <div class="content">Owner: {{ padlet?.user_id}}</div>
+    <div class="content">Owner: {{ padlet?.user?.firstName}} {{ padlet?.user?.lastName}}</div>
   </div>
-  <div class="extra">ID: {{ padlet?.id }}</div>
+  <div class="extra">Padlet ID: {{ padlet?.id }}</div>
 </div>

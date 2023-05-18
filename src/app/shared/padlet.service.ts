@@ -23,10 +23,13 @@ export class PadletService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
+  /*
   getAllEntries(id:number) : Observable<Entrie[]>{
     return this.http.get<Entrie[]>(`${this.api}/padlets/${id}/entries`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
+  */
+
 
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);

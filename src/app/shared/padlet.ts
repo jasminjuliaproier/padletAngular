@@ -6,7 +6,10 @@ export class Padlet {
               public name: string,
               public is_public: boolean,
               public user_id: number,
-              public entries: Entrie[]
+              public entries: Entrie[],
+
+              public user: User
+
 
   ) {}
 }

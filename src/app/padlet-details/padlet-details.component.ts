@@ -5,6 +5,7 @@ import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PadletFactory} from "../shared/padlet-factory";
 import {EntrieFactory} from "../shared/entrie.factory";
+import {UserFactory} from "../shared/user-factory";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -18,6 +19,8 @@ export class PadletDetailsComponent implements OnInit {
 
   padlet: Padlet = PadletFactory.empty();
   entries: Entrie [] = [];
+  user: User | null = null;
+
 
   constructor(
     private bs: PadletService,
@@ -32,14 +35,9 @@ export class PadletDetailsComponent implements OnInit {
       .subscribe((p:Padlet) => {
         this.padlet = p ;
       this.entries = this.padlet.entries;
-      });
+      this.user = this.padlet.user;
 
-/*
-    this.bs.getAllEntries(params['id'])
-      .subscribe(res =>{
-        console.log(res);
-        this.entries = res
-      } );*/
+      });
 
   }
 }
