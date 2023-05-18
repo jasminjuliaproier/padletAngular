@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { PadletListComponent } from './padlet-list/padlet-list.component';
 import { PadletListItemComponent } from './padlet-list-item/padlet-list-item.component';
@@ -8,6 +7,7 @@ import { PadletDetailsComponent } from './padlet-details/padlet-details.componen
 import { EntrieItemComponent } from './entrie-item/entrie-item.component';
 import {PadletService} from "./shared/padlet.service";
 import {AppRoutingModule} from "./app-routing.module";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import {AppRoutingModule} from "./app-routing.module";
     EntrieItemComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule
+    BrowserModule, AppRoutingModule, HttpClientModule
   ],
   providers: [PadletService],
   bootstrap: [AppComponent]
