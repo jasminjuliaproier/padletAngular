@@ -1,16 +1,33 @@
-<div class="header"><h1>{{ padlet?.name }}</h1></div>
+<div class="ui breadcrumb">
+  <div class="section"><a [routerLink]="'/padlets'" style="color:black">Übersicht</a></div>
+  <div class="divider"> / </div>
+  <div class="active section">Padlet</div>
+</div>
 
-<p>Hier folgen alle Einträge, die in dieses Padlet gehören. Zu jedem Eintrag können Kommentare und Ratings angelegt werden</p>
+<br><br>
+<div class="header"><h1>{{ padlet?.name }}</h1></div><br><br>
 
-
+<div class="ui cards" >
 <div *ngFor="let entrie of entries" class="item">
-  <hr>
-  <div class="header">{{entrie?.title }}</div>
-  <div class="header">{{entrie?.content }}</div>
-  <div class="header">{{entrie | json}}</div>
+  <div class="ui card" style="margin-right:20px;">
+    <div class="content">
+  <div class="header">{{entrie?.title }}:</div><br>
+    <div class="description>"> {{entrie?.content }}</div></div><br>
+
+     <div class="content">
+      <button class="ui right floated icon button">
+        <i class="edit icon"></i>
+      </button>
+      <button class="ui right floatedmicon button">
+        Löschen
+      </button>
+    </div>
+  <!--<div class="header">{{entrie | json}}</div>-->
+</div>
+  </div>
 
 
-  <hr>
+  <br>
 </div>
 
 <!--
@@ -23,6 +40,4 @@
   <div class="header">{{comment?.comment }}</div>
 </div>-->
 
-<button [routerLink]="'/padlets'" class="ui button">Zurück zur
-  Übersicht</button>
 
