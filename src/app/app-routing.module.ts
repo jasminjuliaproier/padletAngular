@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'padlets', pathMatch: 'full'},
   { path: 'padlets', component: PadletListComponent},
   { path: 'padlets/:id', component: PadletDetailsComponent},
+  { path: 'padlets/:id/entries', component: PadletDetailsComponent},
 ];
 
 @NgModule({

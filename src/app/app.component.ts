@@ -13,11 +13,27 @@ export class AppComponent {
   //title = 'padletAngularApp';
   //listOn = true;
   //detailsOn = false;
-  padlet : Padlet | undefined;
+  padlet : any;
 
   constructor(private http: HttpClient){
-    http.get<Padlet>('http://padlet.s2010456040.student.kwmhgb.at/padlets').subscribe(val => this.padlet = val);
+    http.get<Padlet>('http://padlet.s2010456040.student.kwmhgb.at/api').subscribe(
+      data => {
+        this.padlet = data;
+        console.log(this.padlet);
+      }
+    );
   }
+}
+
+
+    /*
+    http.get<Padlet>('http://padlet.s2010456040.student.kwmhgb.at/padlets').
+    subscribe(val => this.padlet = val);
+    */
+
+
+
+
   /*
   showList() {
     this.listOn = true;
@@ -30,4 +46,4 @@ export class AppComponent {
   }
 
    */
-}
+

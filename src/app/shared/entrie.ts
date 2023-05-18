@@ -6,7 +6,7 @@ export { Padlet } from "./padlet";
 export class Entrie {
 
   constructor(public id: number,
-              public user_id: User,
+              public user_id: number,
               public padlet_id: number,
               public title: string,
               public content: string) {

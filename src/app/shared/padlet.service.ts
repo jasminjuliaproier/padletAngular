@@ -24,7 +24,7 @@ export class PadletService {
   }
 
   getAllEntries(id:number) : Observable<Entrie[]>{
-    return this.http.get<Entrie[]>(`${this.api}/padlets/${id}`)
+    return this.http.get<Entrie[]>(`${this.api}/padlets/${id}/entries`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
