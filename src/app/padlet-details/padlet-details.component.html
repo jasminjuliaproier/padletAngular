@@ -13,8 +13,7 @@
     <div class="content">
   <div class="header">{{entrie?.title }}:</div><br>
     <div class="description>"> {{entrie?.content }}</div></div><br>
-
-     <div class="content">
+    <div class="content">
       <button class="ui right floated icon button">
         <i class="edit icon"></i>
       </button>
@@ -22,7 +21,27 @@
         Löschen
       </button>
     </div>
-  <!--<div class="header">{{entrie | json}}</div>-->
+
+
+        <div *ngFor="let rating of entrie.ratings" class="extra content">
+          <div class="extra">{{rating.user.firstName}} {{rating.user.lastName}}:</div>
+          <div class="ui heart rating>" *ngIf="rating.rating">
+            <i *ngFor="let r of getRating(rating.rating)" class="red heart icon"></i>
+          </div>
+
+          <!-- Kommentar mit Nummerierung, falls mehrere -->
+          <div class="ui comments">
+            <div *ngFor="let c of entrie?.comments; let i = index">
+              <div class="ui comment" *ngIf="rating?.user?.id === c?.user?.id">
+                <div class="content">Kommentar {{ i + 1 }}: {{ c?.comment }}</div>
+                <br>
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+
 </div>
   </div>
 
@@ -30,14 +49,6 @@
   <br>
 </div>
 
-<!--
-<div *ngFor="let rating of entries?.ratings" class="item">
-  <div class="header">{{rating?.rating }}</div>
-</div>
 
-
-<div *ngFor="let comment of entrie?.comments" class="item">
-  <div class="header">{{comment?.comment }}</div>
-</div>-->
 
 

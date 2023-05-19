@@ -4,10 +4,9 @@ import {Entrie} from "../shared/entrie";
 import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PadletFactory} from "../shared/padlet-factory";
-import {EntrieFactory} from "../shared/entrie.factory";
 import {UserFactory} from "../shared/user-factory";
-import {RatingFactory} from "../shared/rating-factory";
 import {Rating} from "../shared/rating";
+import {Comment} from "../shared/comment";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -21,8 +20,7 @@ export class PadletDetailsComponent implements OnInit {
   padlet: Padlet = PadletFactory.empty();
   entries: Entrie [] = [];
   user: User = UserFactory.empty();
-  rating: Rating [] = [];
-  comment: Comment [] = [];
+
 
   constructor(
     private bs: PadletService,
@@ -33,23 +31,35 @@ export class PadletDetailsComponent implements OnInit {
 
   ngOnInit() {
     const params = this.route.snapshot.params;
-    this.bs.getSinglePadlet(params['id'])
+    this.bs.findPadletByPadletID(params['id'])
       .subscribe((p:Padlet) => {
         this.padlet = p ;
       this.entries = this.padlet.entries;
       this.user = this.padlet.user;
-        for(let e of this.entries){
-          e.ratings = [];
-          console.log(e.ratings);
-          this.bs.getSingleEntrie(e.id)
-            .subscribe((x:Entrie) => {
-              e.ratings = x.ratings;
-              console.log(e);
-            });
-        }
-
+      this.getRatings();
+      this.getComments();
       });
 
+  }
+
+  getComments() : void {
+    for (let entrie of this.entries) {
+      this.bs.findCommentsByEntrieID(entrie.id).subscribe((res: Comment[]) => {
+        entrie.comments = res;
+      });
+    }
+  }
+
+
+  getRatings() : void {
+    for(let entrie of this.entries) {
+      this.bs.findRatingsByEntrieID(entrie.id).subscribe((res: Rating[]) => {
+        entrie.ratings = res;
+      })
+    }
+  }
+  getRating(rating: number) {
+    return Array(rating)
   }
 
 }
