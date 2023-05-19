@@ -5,7 +5,18 @@
 </div>
 
 <br><br>
-<div class="header"><h1>{{ padlet?.name }}</h1></div><br><br>
+<div class="header"><h1>{{ padlet?.name }}
+<button class="ui right floated tiny red labeled icon button"
+        (click)="removePadlet()">
+  <i class="remove icon"></i> Padlet löschen
+</button>
+  <a class="ui right floated tiny yellow labeled icon button"
+     [routerLink]="['../../admin', padlet.id]">
+    <i class="write icon"></i> Padlet bearbeiten
+  </a>
+
+</h1></div>
+<br><br>
 
 <div class="ui cards" >
 <div *ngFor="let entrie of entries" class="item">
@@ -33,19 +44,15 @@
           <div class="ui comments">
             <div *ngFor="let c of entrie?.comments; let i = index">
               <div class="ui comment" *ngIf="rating?.user?.id === c?.user?.id">
-                <div class="content">Kommentar {{ i + 1 }}: {{ c?.comment }}</div>
+                <div class="content">Kommentar{{ i + 1 }}:</div>
+                <div> {{ c?.comment }}</div>
                 <br>
               </div>
             </div>
           </div>
       </div>
-
-
-
 </div>
   </div>
-
-
   <br>
 </div>
 

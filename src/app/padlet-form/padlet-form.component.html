@@ -1,0 +1,34 @@
+<div class="ui breadcrumb">
+  <div class="section"><a [routerLink]="'/padlets'" style="color:black">Übersicht</a></div>
+  <div class="divider"> / </div>
+  <div class="active section">Padlet Formular</div>
+</div>
+<br>
+<h1>
+<div class="header">Padlet Formular</div></h1>
+
+<form class="ui large form" [formGroup]="padletForm"
+      (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label>Padlettitel</label>
+    <input formControlName="name">
+    <div *ngIf="errors['name']" class="ui negative message"> {{
+      errors['name'] }} </div><br><br>
+
+    <label for="public-radio">
+      <input type="radio" id="public-radio" formControlName="is_public" value="public">
+      Öffentlich
+    </label>
+    <label for="private-radio">
+      <input type="radio" id="private-radio" formControlName="is_public" value="private">
+      Privat
+    </label>
+
+
+  </div>
+
+
+  <button type="submit" class="ui button"
+          [disabled]="padletForm.invalid">Speichern</button>
+</form>

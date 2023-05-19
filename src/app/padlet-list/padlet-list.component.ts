@@ -19,4 +19,5 @@ export class PadletListComponent implements OnInit{
     this.bs.getPadlets().subscribe(res=>this.padlets = res);
     this.bs.getEntries().subscribe(res=>this.entries = res);
   }
+
 }

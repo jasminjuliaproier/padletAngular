@@ -1,6 +1,13 @@
+<button class="ui tiny labeled icon button" style="margin-bottom: 20px;">
+  <i class="pencil alternate icon"></i> Neues Padlet erstellen
+</button>
+
 <div class="ui cards selection list">
   <a *ngFor="let padlet of padlets" class="item bs-padlet-list-item"
-     [padlet]="padlet" [routerLink]="padlet.id.toString()"> </a>
+     [padlet]="padlet" [routerLink]="padlet.id.toString()">
+  </a>
 </div>
+
+
 
 

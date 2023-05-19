@@ -50,7 +50,6 @@ export class PadletDetailsComponent implements OnInit {
     }
   }
 
-
   getRatings() : void {
     for(let entrie of this.entries) {
       this.bs.findRatingsByEntrieID(entrie.id).subscribe((res: Rating[]) => {
@@ -62,4 +61,13 @@ export class PadletDetailsComponent implements OnInit {
     return Array(rating)
   }
 
-}
+  //Padlet löschen?
+  removePadlet() {
+    if (confirm('Padlet wirklich löschen?')) {
+      this.bs.remove(this.padlet.id)
+        .subscribe((res: any) => this.router.navigate(['../'], {
+          relativeTo:
+          this.route
+        }));
+    }
+  }}

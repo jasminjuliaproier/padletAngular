@@ -1,13 +1,18 @@
 
 <div class="ui card middle aligned">
 <div class="content">
-  <div class="header">{{ padlet?.name }}</div>
+  <div class="header">{{ padlet?.name }}
+  <button class="ui right floated icon button">
+    <i class="edit icon"></i>
+  </button>
+</div>
 </div>
   <div class="content">
   <div class="meta">
     <div class="content">Owner: {{ padlet?.user?.firstName}} {{ padlet?.user?.lastName}}</div>
   </div>
   <div class="extra">Padlet ID: {{ padlet?.id }}</div>
+
 </div>
 </div>
 
