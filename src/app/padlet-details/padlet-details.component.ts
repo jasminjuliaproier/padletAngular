@@ -21,6 +21,8 @@ export class PadletDetailsComponent implements OnInit {
   entries: Entrie [] = [];
   user: User = UserFactory.empty();
 
+  comment: string = ""
+
 
   constructor(
     private bs: PadletService,
@@ -39,7 +41,6 @@ export class PadletDetailsComponent implements OnInit {
       this.getRatings();
       this.getComments();
       });
-
   }
 
   getComments() : void {
@@ -70,4 +71,24 @@ export class PadletDetailsComponent implements OnInit {
           this.route
         }));
     }
-  }}
+  }
+  removeEntry(id: number) {
+    if (confirm('Entrie wirklich löschen?')) {
+      this.bs.removeEntrie(id).subscribe((res: any) => this.router.navigate(['/padlets/'+ this.padlet.id], {
+        relativeTo:
+        this.route
+      }));
+    }
+  }
+
+  changeComment(event: Event) {
+    this.comment = (event.target as HTMLInputElement).value
+    console.log(this.comment)
+  }
+
+  createComment(id: number) {
+    this.bs.createComment(id, this.comment).subscribe((res: any) => location.reload())
+  }
+}
+
+

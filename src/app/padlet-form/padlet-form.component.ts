@@ -29,6 +29,7 @@ constructor(
 
 ngOnInit() {
   const id = this.route.snapshot.params['id'];
+  console.log(id)
   if (id){
     this.isUpdatingPadlet = true;
     this.bs.findPadletByPadletID(id).subscribe(padlet =>{
@@ -43,10 +44,12 @@ initPadlet(){
   this.padletForm = this.fb.group({
     id: this.padlet.id,
     name: [this.padlet.name, Validators.required],
-    is_public: false
+    is_public: [Boolean(this.padlet.is_public)]
   });
   this.padletForm.statusChanges.subscribe(() =>
     this.updateErrorMessages());
+
+  console.log(this.padletForm)
 }
 
   submitForm() {
@@ -64,7 +67,7 @@ initPadlet(){
         this.bs.create(padlet).subscribe(res=>{
           this.padlet = PadletFactory.empty();
           this.padletForm.reset(PadletFactory.empty());
-          this.router.navigate(["../padlets"], {
+          this.router.navigate(["../../padlets"], {
             relativeTo: this.route
           });
         });

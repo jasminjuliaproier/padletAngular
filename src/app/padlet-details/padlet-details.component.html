@@ -1,57 +1,81 @@
-<div class="ui breadcrumb">
+<div class="ui breadcrumb" xmlns="http://www.w3.org/1999/html">
   <div class="section"><a [routerLink]="'/padlets'" style="color:black">Übersicht</a></div>
-  <div class="divider"> / </div>
+  <div class="divider"> /</div>
   <div class="active section">Padlet</div>
 </div>
 
 <br><br>
-<div class="header"><h1>{{ padlet?.name }}
-<button class="ui right floated tiny red labeled icon button"
-        (click)="removePadlet()">
-  <i class="remove icon"></i> Padlet löschen
-</button>
-  <a class="ui right floated tiny yellow labeled icon button"
-     [routerLink]="['../../admin', padlet.id]">
-    <i class="write icon"></i> Padlet bearbeiten
-  </a>
+<div class="header">
+  <h1>{{ padlet?.name }}
+    <button class="ui right floated tiny red labeled icon button"
+            (click)="removePadlet()">
+      <i class="remove icon"></i> Padlet löschen
+    </button>
+    <a class="ui right floated tiny yellow labeled icon button"
+       [routerLink]="['../../admin/padlets', padlet.id]">
+      <i class="write icon"></i> Padlet bearbeiten
+    </a>
 
-</h1></div>
+    <button class="ui right floated tiny red labeled icon button"
+            [routerLink]="['../../admin/padlets', padlet.id, 'entries']">
+      Entrie erstellen
+    </button>
+
+
+  </h1>
+</div>
 <br><br>
 
-<div class="ui cards" >
-<div *ngFor="let entrie of entries" class="item">
-  <div class="ui card" style="margin-right:20px;">
-    <div class="content">
-  <div class="header">{{entrie?.title }}:</div><br>
-    <div class="description>"> {{entrie?.content }}</div></div><br>
-    <div class="content">
-      <button class="ui right floated icon button">
-        <i class="edit icon"></i>
-      </button>
-      <button class="ui right floatedmicon button">
-        Löschen
-      </button>
-    </div>
+<div class="ui cards">
+  <div *ngFor="let entrie of entries" class="item">
+    <div class="ui card" style="margin-right:20px;">
+      <div class="content">
+        <div class="header">{{entrie?.title }}:</div>
+        <br>
+        <div class="description>"> {{entrie?.content }}</div>
+      </div>
+      <br>
+      <div class="content">
+
+        <button class="ui right floated icon button" [routerLink]="['../../admin/padlets', padlet.id, 'entries', entrie.id]">
+          <i class="edit icon"></i>
+        </button>
+
+        <button class="ui right floatedmicon button" (click)="removeEntry(entrie.id)">
+          Löschen
+        </button>
+      </div>
 
 
-        <div *ngFor="let rating of entrie.ratings" class="extra content">
-          <div class="extra">{{rating.user.firstName}} {{rating.user.lastName}}:</div>
-          <div class="ui heart rating>" *ngIf="rating.rating">
-            <i *ngFor="let r of getRating(rating.rating)" class="red heart icon"></i>
-          </div>
+      <div *ngFor="let rating of entrie.ratings" class="extra content">
+        <div class="extra">{{rating.user.firstName}} {{rating.user.lastName}}:</div>
+        <div class="ui heart rating>" *ngIf="rating.rating">
+          <i *ngFor="let r of getRating(rating.rating)" class="red heart icon"></i>
+        </div>
 
-          <!-- Kommentar mit Nummerierung, falls mehrere -->
-          <div class="ui comments">
-            <div *ngFor="let c of entrie?.comments; let i = index">
-              <div class="ui comment" *ngIf="rating?.user?.id === c?.user?.id">
-                <div class="content">Kommentar{{ i + 1 }}:</div>
-                <div> {{ c?.comment }}</div>
-                <br>
-              </div>
+        <!-- Kommentar mit Nummerierung, falls mehrere -->
+        <div class="ui comments">
+          <div *ngFor="let c of entrie?.comments; let i = index">
+            <div class="ui comment" *ngIf="rating?.user?.id === c?.user?.id">
+              <div class="content">Kommentar{{ i + 1 }}:</div>
+              <div> {{ c?.comment }}</div>
+              <br>
             </div>
           </div>
+        </div>
+
+        <div>
+          <form class="ui reply form">
+            <div class="field">
+              <textarea type="text" (input)="changeComment($event)"></textarea>
+            </div>
+            <button type="button" (click)="createComment(entrie.id)">
+              Add Reply
+            </button>
+          </form>
+        </div>
       </div>
-</div>
+    </div>
   </div>
   <br>
 </div>

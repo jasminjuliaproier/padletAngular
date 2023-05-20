@@ -65,7 +65,12 @@ export class PadletService {
 
   //Entrie erstellen
   createEntrie(id:number, entrie: Entrie): Observable<any> {
-    return this.http.post(`${this.api}/padlets/${id}entries`, entrie)
+    return this.http.post(`${this.api}/padlets/${id}/entries`, entrie)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  updateEntrie(id: number, entrie: Entrie): Observable<any> {
+    return this.http.put(`${this.api}/entries/${id}`, entrie)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
@@ -73,6 +78,12 @@ export class PadletService {
   removeEntrie(id: number): Observable<any> {
     return this.http.delete(`${this.api}/entries/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  // Kommentar erstellen
+  createComment(id:number, comment: string): Observable<any> {
+    return this.http.post(`${this.api}/entries/${id}/comments`, {user_id: 1, comment: comment})
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
   private errorHandler(error: Error | any): Observable<any> {

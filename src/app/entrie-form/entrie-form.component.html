@@ -1,0 +1,28 @@
+<div class="ui breadcrumb">
+  <div class="section"><a [routerLink]="'/entries'" style="color:black">Übersicht</a></div>
+  <div class="divider"> / </div>
+  <div class="active section">Entrie Formular</div>
+</div>
+<br>
+<h1>
+  <div class="header">Entrie Formular</div></h1>
+
+<form class="ui large form" [formGroup]="entrieForm"
+      (ngSubmit)="submitForm()">
+  <input type="hidden"  formControlName="id">
+  <div class="field">
+    <label>Entrietitel</label>
+    <input formControlName="title">
+    <div *ngIf="errors['title']" class="ui negative message"> {{
+      errors['title'] }} </div><br><br>
+
+    <input formControlName="content">
+
+
+  </div>
+
+
+  <button type="submit" class="ui button"
+          [disabled]="entrieForm.invalid">Speichern</button>
+</form>
+
