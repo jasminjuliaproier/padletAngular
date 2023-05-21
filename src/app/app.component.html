@@ -1,8 +1,9 @@
 <div class="ui two item tabs menu">
   <a routerLink="padlets" routerLinkActive="active" class="item">Padlets</a>
-  <a routerLink="admin/padlets" routerLinkActive="active" class="item">Administration</a>
+  <a routerLink="login" routerLinkActive="active"
+     class="item">{{getLoginLabel()}}</a>
 </div>
 
-<<div class="ui container">
+<div class="ui container">
   <router-outlet></router-outlet>
 </div>

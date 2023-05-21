@@ -7,7 +7,7 @@
 <br><br>
 <div class="header">
   <h1>{{ padlet?.name }}
-    <button class="ui right floated tiny red labeled icon button"
+    <button *ngIf="authService.isLoggedIn()" class="ui right floated tiny red labeled icon button"
             (click)="removePadlet()">
       <i class="remove icon"></i> Padlet löschen
     </button>
@@ -15,16 +15,13 @@
        [routerLink]="['../../admin/padlets', padlet.id]">
       <i class="write icon"></i> Padlet bearbeiten
     </a>
-
-    <button class="ui right floated tiny red labeled icon button"
-            [routerLink]="['../../admin/padlets', padlet.id, 'entries']">
-      Entrie erstellen
-    </button>
-
-
   </h1>
 </div>
 <br><br>
+<button class="ui tiny green labeled icon button"
+        [routerLink]="['../../admin/padlets', padlet.id, 'entries']">
+  <i class="edit icon"></i>Entrie erstellen
+</button><br><br>
 
 <div class="ui cards">
   <div *ngFor="let entrie of entries" class="item">
@@ -70,10 +67,12 @@
               <textarea type="text" (input)="changeComment($event)"></textarea>
             </div>
             <button type="button" (click)="createComment(entrie.id)">
-              Add Reply
+              Kommentar hinzufügen
             </button>
           </form>
         </div>
+
+
       </div>
     </div>
   </div>

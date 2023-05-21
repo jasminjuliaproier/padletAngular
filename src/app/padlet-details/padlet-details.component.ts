@@ -7,6 +7,7 @@ import {PadletFactory} from "../shared/padlet-factory";
 import {UserFactory} from "../shared/user-factory";
 import {Rating} from "../shared/rating";
 import {Comment} from "../shared/comment";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -27,7 +28,8 @@ export class PadletDetailsComponent implements OnInit {
   constructor(
     private bs: PadletService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public authService: AuthenticationService
 
               ) {}
 

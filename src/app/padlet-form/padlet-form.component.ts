@@ -58,7 +58,7 @@ initPadlet(){
 
       if (this.isUpdatingPadlet){
         this.bs.update(padlet).subscribe(res=>{
-          this.router.navigate(["../../padlets", padlet.id], {
+          this.router.navigate(["../../../padlets", padlet.id], {
             relativeTo: this.route
           });
         });

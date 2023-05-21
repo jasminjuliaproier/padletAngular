@@ -5,6 +5,7 @@ import { NgModule } from "@angular/core";
 import {EntrieItemComponent} from "./entrie-item/entrie-item.component";
 import {PadletFormComponent} from "./padlet-form/padlet-form.component";
 import {EntrieFormComponent} from "./entrie-form/entrie-form.component";
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'padlets', pathMatch: 'full'},
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'admin/padlets', component: PadletFormComponent},
   { path: 'admin/padlets/:id', component: PadletFormComponent},
   { path: 'admin/padlets/:padlet_id/entries', component: EntrieFormComponent},
-  { path: 'admin/padlets/:padlet_id/entries/:entrie_id', component: EntrieFormComponent}
+  { path: 'admin/padlets/:padlet_id/entries/:entrie_id', component: EntrieFormComponent},
+  {path: 'login', component:LoginComponent}
 
 ];
 
