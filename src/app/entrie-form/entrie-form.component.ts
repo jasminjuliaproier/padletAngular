@@ -28,6 +28,11 @@ export class EntrieFormComponent implements OnInit{
     this.entrieForm = this.fb.group({});
   }
 
+  // Ein neuer Entrie wird vom Entrie Factory geholt, darin wird wir padlet id aus der route gespeichert
+  // Die Entrie_id wird auch aus der Route geholt
+  //Überprüfung: Ist beides aus der Route vorhanden? So wird der Entrie Geupdatet!
+  //Entrie wird über die Padlet ID gefunden und das Obekt wird zum neuen entrie
+
   ngOnInit() {
     this.entrie.padlet_id = this.route.snapshot.params['padlet_id'];
     this.entrie.id = this.route.snapshot.params['entrie_id']
@@ -37,13 +42,15 @@ export class EntrieFormComponent implements OnInit{
         this.entrie = entrie
         this.initEntrie();
       });
-    } //else {
+    } // Ansonsten wird gleich initEntrie ausgeführt
 
       this.initEntrie();
     //}
 
   }
 
+  //Überprüft alle parameter und weißt richtig zu
+  //Error meldung falls etwas nicht funktioniert
   initEntrie(){
     this.entrieForm = this.fb.group({
       id: this.entrie.id,
@@ -53,8 +60,6 @@ export class EntrieFormComponent implements OnInit{
     });
     this.entrieForm.statusChanges.subscribe(() =>
       this.updateErrorMessages());
-
-    console.log(this.entrieForm)
   }
 
   submitForm() {
@@ -62,6 +67,8 @@ export class EntrieFormComponent implements OnInit{
     console.log(this.entrieForm.value)
     entrie.user_id = this.entrie.user_id;
 
+    //Wird die Variable oben auf true gesetzt so wird in Folge dieser Codeteil ausgeführt
+    // Entrie wird geupdatet
     if (this.isUpdatingEntrie){
       this.bs.updateEntrie(entrie.id,entrie).subscribe(res=>{
         this.router.navigate(["../../../../../padlets/", entrie.padlet_id], {
@@ -69,10 +76,11 @@ export class EntrieFormComponent implements OnInit{
         });
       });
     } else{
-      entrie.user_id = 1;
+      entrie.user_id = parseInt(sessionStorage.getItem("userId") ?? '0', 10);
       entrie.padlet_id = this.entrie.padlet_id;
       entrie.id = this.entrie.id
 
+      //Entrie wird neuerstellt
       this.bs.createEntrie(entrie.padlet_id, entrie).subscribe(res=>{
         this.entrie = EntrieFactory.empty();
         this.entrieForm.reset(EntrieFactory.empty());
@@ -82,6 +90,7 @@ export class EntrieFormComponent implements OnInit{
       });
     }
   }
+  //Error Messages
   updateErrorMessages()
   {
     console.log("Is invalid? " + this.entrieForm.invalid);

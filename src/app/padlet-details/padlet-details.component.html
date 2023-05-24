@@ -1,49 +1,59 @@
+<!-- Breadcrumb um die Schritte zu sehen, in denen man sich bewegt-->
 <div class="ui breadcrumb" xmlns="http://www.w3.org/1999/html">
   <div class="section"><a [routerLink]="'/padlets'" style="color:black">Übersicht</a></div>
   <div class="divider"> /</div>
   <div class="active section">Padlet</div>
-</div>
+</div><br><br>
 
-<br><br>
+
 <div class="header">
   <h1>{{ padlet?.name }}
-    <button *ngIf="authService.isLoggedIn()" class="ui right floated tiny red labeled icon button"
+    <!--Padlet löschen - nur wenn user eingeloggt ist-->
+    <button *ngIf="authService.isLoggedIn()" class="ui right floated icon button" style="background-color:darkred; color:white"
             (click)="removePadlet()">
       <i class="remove icon"></i> Padlet löschen
     </button>
-    <a class="ui right floated tiny yellow labeled icon button"
+    <!--Padlet bearbeiten - nur wenn user eingeloggt ist -->
+    <a *ngIf="authService.isLoggedIn()" class="ui right floated icon button" style="background-color:darkolivegreen; color:white"
        [routerLink]="['../../admin/padlets', padlet.id]">
       <i class="write icon"></i> Padlet bearbeiten
     </a>
   </h1>
-</div>
-<br><br>
-<button class="ui tiny green labeled icon button"
+</div><br><br>
+
+<!--Entrie erstellen - nur wenn user eingeloggt ist -->
+<button *ngIf="authService.isLoggedIn()" class="ui icon button"
         [routerLink]="['../../admin/padlets', padlet.id, 'entries']">
   <i class="edit icon"></i>Entrie erstellen
 </button><br><br>
-
+<!--Liste der vorhandenen Entries -->
 <div class="ui cards">
   <div *ngFor="let entrie of entries" class="item">
-    <div class="ui card" style="margin-right:20px;">
+    <div class="ui card" style="margin-right:20px; ">
       <div class="content">
         <div class="header">{{entrie?.title }}:</div>
         <br>
-        <div class="description>"> {{entrie?.content }}</div>
+        <div class="description>"> {{entrie?.content }}</div><br>
+        <div class="content">
+          <div class="meta right floated">
+            <img class="ui avatar image" src="{{padlet?.user?.image}}">
+            <span class="content">{{ padlet?.user?.firstName}} {{ padlet?.user?.lastName}}</span></div>
+        </div>
       </div>
-      <br>
-      <div class="content">
 
-        <button class="ui right floated icon button" [routerLink]="['../../admin/padlets', padlet.id, 'entries', entrie.id]">
+      <!--Wenn user eingeloggt ist, so kann er:sie den Entrie bearbeiten oder löschen -->
+      <div *ngIf="authService.isLoggedIn()" class="content">
+        <button *ngIf="authService.isLoggedIn()"
+          class="ui right floated icon button" [routerLink]="['../../admin/padlets', padlet.id, 'entries', entrie.id]">
           <i class="edit icon"></i>
         </button>
-
-        <button class="ui right floatedmicon button" (click)="removeEntry(entrie.id)">
+        <button *ngIf="authService.isLoggedIn()"
+          class="ui right floatedmicon button" (click)="removeEntry(entrie.id)">
           Löschen
         </button>
       </div>
 
-
+      <!-- Ausgabe der Comments und Ratings -->
       <div *ngFor="let rating of entrie.ratings" class="extra content">
         <div class="extra">{{rating.user.firstName}} {{rating.user.lastName}}:</div>
         <div class="ui heart rating>" *ngIf="rating.rating">
@@ -53,7 +63,7 @@
         <!-- Kommentar mit Nummerierung, falls mehrere -->
         <div class="ui comments">
           <div *ngFor="let c of entrie?.comments; let i = index">
-            <div class="ui comment" *ngIf="rating?.user?.id === c?.user?.id">
+            <div class="ui comment" >
               <div class="content">Kommentar{{ i + 1 }}:</div>
               <div> {{ c?.comment }}</div>
               <br>
@@ -61,17 +71,18 @@
           </div>
         </div>
 
+        <!-- Kommentar hinzufügen -->
         <div>
-          <form class="ui reply form">
+          <form *ngIf="authService.isLoggedIn()" class="ui reply form">
             <div class="field">
               <textarea type="text" (input)="changeComment($event)"></textarea>
             </div>
-            <button type="button" (click)="createComment(entrie.id)">
+            <p></p>
+            <button type="button" class="ui basic button" (click)="createComment(entrie.id)">
               Kommentar hinzufügen
             </button>
           </form>
         </div>
-
 
       </div>
     </div>

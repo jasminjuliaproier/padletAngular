@@ -33,6 +33,10 @@ export class PadletDetailsComponent implements OnInit {
 
               ) {}
 
+  //Speichert den Routen Parameter ID unf sucht damit ein bestimmtes Padlet
+  //Entries dieses Padlets werden in den leeren Array gespeichert
+  //Selbiges mit User
+  //Holt noch die Kommentare und die Ratings von den Entries um diese im html auszugeben
   ngOnInit() {
     const params = this.route.snapshot.params;
     this.bs.findPadletByPadletID(params['id'])
@@ -45,6 +49,7 @@ export class PadletDetailsComponent implements OnInit {
       });
   }
 
+  //Holt Kommentare über die Entrie ID
   getComments() : void {
     for (let entrie of this.entries) {
       this.bs.findCommentsByEntrieID(entrie.id).subscribe((res: Comment[]) => {
@@ -53,6 +58,7 @@ export class PadletDetailsComponent implements OnInit {
     }
   }
 
+  //Holt Ratings über die Entrie ID
   getRatings() : void {
     for(let entrie of this.entries) {
       this.bs.findRatingsByEntrieID(entrie.id).subscribe((res: Rating[]) => {
@@ -60,6 +66,7 @@ export class PadletDetailsComponent implements OnInit {
       })
     }
   }
+  //Holt Ratings
   getRating(rating: number) {
     return Array(rating)
   }
@@ -74,6 +81,8 @@ export class PadletDetailsComponent implements OnInit {
         }));
     }
   }
+
+  //Confirmation- Entrie löschen?
   removeEntry(id: number) {
     if (confirm('Entrie wirklich löschen?')) {
       this.bs.removeEntrie(id).subscribe((res: any) => this.router.navigate(['/padlets/'+ this.padlet.id], {
@@ -89,7 +98,11 @@ export class PadletDetailsComponent implements OnInit {
   }
 
   createComment(id: number) {
-    this.bs.createComment(id, this.comment).subscribe((res: any) => location.reload())
+    console.log(id);
+    const user_id = sessionStorage.getItem('userId');
+    if (user_id){
+      this.bs.createComment(id, this.comment, parseInt(user_id)).subscribe((res: any) => location.reload())
+    }
   }
 }
 

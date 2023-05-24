@@ -1,16 +1,18 @@
 
-<div class="ui card middle aligned">
+<div *ngIf="padlet?.is_public || authService.isLoggedIn()" class ="ui card middle aligned">
 <div class="content">
-  <div class="header">{{ padlet?.name }}
+  <img src="{{padlet?.image}}" class="ui  image" style="height: 150px; width: 290px;"><br><br>
+  <div class="header">{{ padlet?.name }}</div>
+  <div class="extra">Padlet_id: {{ padlet?.id }}
+    <i *ngIf="padlet?.is_public == true" class="globe icon"></i>
+  </div>
 
-</div>
 </div>
   <div class="content">
   <div class="meta">
-    <div class="content">Owner: {{ padlet?.user?.firstName}} {{ padlet?.user?.lastName}}</div>
+    <img class="ui avatar image" src="{{padlet?.user?.image}}">
+    <span class="content">{{ padlet?.user?.firstName}} {{ padlet?.user?.lastName}}</span></div>
   </div>
-  <div class="extra">Padlet ID: {{ padlet?.id }}</div>
+</div>
 
-</div>
-</div>
 

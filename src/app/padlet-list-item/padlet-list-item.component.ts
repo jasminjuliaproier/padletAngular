@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Padlet} from "../shared/padlet";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'a.bs-padlet-list-item',
@@ -9,7 +10,7 @@ import {Padlet} from "../shared/padlet";
 export class PadletListItemComponent implements OnInit{
   @Input() padlet: Padlet | undefined
 
-  constructor() {
+  constructor(public authService: AuthenticationService) {
   }
   ngOnInit() {
   }

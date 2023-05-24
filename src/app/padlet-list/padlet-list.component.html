@@ -1,8 +1,17 @@
-<button class="ui tiny labeled icon button" style="margin-bottom: 20px;" routerLink="../admin/padlets">
-  <i class="pencil alternate icon"></i> Neues Padlet erstellen
-</button>
+<!--Message für den User bei Login -->
+<div *ngIf="authService.isLoggedIn()" class ="ui message">
+  <div class="header">
+    Welcome back!
+  </div>
+  <p>Hopefully you have a wonderful day.</p>
+</div>
 
-<div class="ui cards selection list">
+<!--Neue Padlets können nur eingeloggte User erstellen -->
+<button *ngIf="authService.isLoggedIn()"class="ui basic button" style="margin-bottom: 20px;" routerLink="../admin/padlets">
+  <i  class="pencil alternate icon"></i> Neues Padlet erstellen
+</button>
+<!--Liste der Padlets -->
+<div class ="ui cards selection list">
   <a *ngFor="let padlet of padlets" class="item bs-padlet-list-item"
      [padlet]="padlet" [routerLink]="padlet.id.toString()">
   </a>

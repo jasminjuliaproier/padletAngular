@@ -44,26 +44,30 @@ initPadlet(){
   this.padletForm = this.fb.group({
     id: this.padlet.id,
     name: [this.padlet.name, Validators.required],
-    is_public: [Boolean(this.padlet.is_public)]
+    is_public: [Boolean(this.padlet.is_public)],
+    image: this.padlet.image
   });
   this.padletForm.statusChanges.subscribe(() =>
     this.updateErrorMessages());
 
-  console.log(this.padletForm)
+  //console.log(this.padletForm)
 }
 
   submitForm() {
       const padlet: Padlet = PadletFactory.fromObject(this.padletForm.value);
       padlet.user = this.padlet.user;
+      padlet.image = this.padlet.image;
 
-      if (this.isUpdatingPadlet){
+
+    if (this.isUpdatingPadlet){
         this.bs.update(padlet).subscribe(res=>{
           this.router.navigate(["../../../padlets", padlet.id], {
             relativeTo: this.route
           });
         });
       } else{
-        padlet.user_id = 1;
+      padlet.image = 'https://images.unsplash.com/photo-1519222970733-f546218fa6d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80';
+      padlet.user_id = parseInt(sessionStorage.getItem("userId") ?? '0', 10);
         this.bs.create(padlet).subscribe(res=>{
           this.padlet = PadletFactory.empty();
           this.padletForm.reset(PadletFactory.empty());
