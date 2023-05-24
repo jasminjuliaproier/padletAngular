@@ -1,10 +1,15 @@
-
+<!--Wenn das Padlet öffentlich ist, zeige padlets, wenn user eingeloggt ist, dann zeige private padlets -->
 <div *ngIf="padlet?.is_public || authService.isLoggedIn()" class ="ui card middle aligned">
 <div class="content">
   <img src="{{padlet?.image}}" class="ui  image" style="height: 150px; width: 290px;"><br><br>
-  <div class="header">{{ padlet?.name }}</div>
-  <div class="extra">Padlet_id: {{ padlet?.id }}
-    <i *ngIf="padlet?.is_public == true" class="globe icon"></i>
+  <div class="header">{{ padlet?.name }}</div><br>
+  <!--Wenn Padlet öffentlich, dann zeig folgendes -->
+  <div *ngIf="padlet?.is_public == true" class="extra">
+    <i  class="globe icon"></i><p>Öffentliches Padlet</p>
+    </div>
+  <!-- Wenn Padlet privat, dann zeig folgendes -->
+    <div *ngIf="padlet?.is_public == false" class="extra">
+    <i  class="user icon"></i><p>Privates Padlet</p>
   </div>
 
 </div>

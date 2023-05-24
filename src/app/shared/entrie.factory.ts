@@ -4,13 +4,14 @@ import {Comment} from "./comment";
 
 export class EntrieFactory {
 
-  static empty() : Entrie{
+  static empty(): Entrie {
 
-    return new Entrie(1,1, 1, 'Title', 'Content', [], []);
+    return new Entrie(1, 1, 1, 'Title', 'Content', [], []);
   }
-  static fromObject(rawEntrie: any) : Entrie{
+
+  static fromObject(rawEntrie: any): Entrie {
     return new Entrie(
-     rawEntrie.id,
+      rawEntrie.id,
       rawEntrie.user_id,
       rawEntrie.padlet_id,
       rawEntrie.title,

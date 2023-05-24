@@ -9,12 +9,14 @@
 <div class="header">
   <h1>{{ padlet?.name }}
     <!--Padlet löschen - nur wenn user eingeloggt ist-->
-    <button *ngIf="authService.isLoggedIn()" class="ui right floated icon button" style="background-color:darkred; color:white"
+    <button *ngIf="authService.isLoggedIn()" class="ui right floated icon button"
+            style="background-color:darkred; color:white"
             (click)="removePadlet()">
       <i class="remove icon"></i> Padlet löschen
     </button>
     <!--Padlet bearbeiten - nur wenn user eingeloggt ist -->
-    <a *ngIf="authService.isLoggedIn()" class="ui right floated icon button" style="background-color:darkolivegreen; color:white"
+    <a *ngIf="authService.isLoggedIn()" class="ui right floated icon button"
+       style="background-color:darkolivegreen; color:white"
        [routerLink]="['../../admin/padlets', padlet.id]">
       <i class="write icon"></i> Padlet bearbeiten
     </a>
@@ -26,14 +28,17 @@
         [routerLink]="['../../admin/padlets', padlet.id, 'entries']">
   <i class="edit icon"></i>Entrie erstellen
 </button><br><br>
-<!--Liste der vorhandenen Entries -->
+
+<!--Liste der vorhandenen Entries iteriert über alle Entries und gibt title, content und user informations
+aus -->
 <div class="ui cards">
   <div *ngFor="let entrie of entries" class="item">
     <div class="ui card" style="margin-right:20px; ">
       <div class="content">
         <div class="header">{{entrie?.title }}:</div>
         <br>
-        <div class="description>"> {{entrie?.content }}</div><br>
+        <div class="description>"> {{entrie?.content }}</div>
+        <br>
         <div class="content">
           <div class="meta right floated">
             <img class="ui avatar image" src="{{padlet?.user?.image}}">
@@ -44,11 +49,12 @@
       <!--Wenn user eingeloggt ist, so kann er:sie den Entrie bearbeiten oder löschen -->
       <div *ngIf="authService.isLoggedIn()" class="content">
         <button *ngIf="authService.isLoggedIn()"
-          class="ui right floated icon button" [routerLink]="['../../admin/padlets', padlet.id, 'entries', entrie.id]">
+                class="ui right floated icon button"
+                [routerLink]="['../../admin/padlets', padlet.id, 'entries', entrie.id]">
           <i class="edit icon"></i>
         </button>
         <button *ngIf="authService.isLoggedIn()"
-          class="ui right floatedmicon button" (click)="removeEntry(entrie.id)">
+                class="ui right floatedmicon button" (click)="removeEntry(entrie.id)">
           Löschen
         </button>
       </div>
@@ -63,7 +69,7 @@
         <!-- Kommentar mit Nummerierung, falls mehrere -->
         <div class="ui comments">
           <div *ngFor="let c of entrie?.comments; let i = index">
-            <div class="ui comment" >
+            <div class="ui comment">
               <div class="content">Kommentar{{ i + 1 }}:</div>
               <div> {{ c?.comment }}</div>
               <br>
@@ -71,7 +77,7 @@
           </div>
         </div>
 
-        <!-- Kommentar hinzufügen -->
+        <!-- Kommentar hinzufügen , wenn user eingeloggt ist-->
         <div>
           <form *ngIf="authService.isLoggedIn()" class="ui reply form">
             <div class="field">

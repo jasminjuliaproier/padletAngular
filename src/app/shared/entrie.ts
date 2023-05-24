@@ -1,9 +1,11 @@
-import { User } from "./user";
-export { User } from "./user";
-import { Padlet } from "./padlet";
+import {User} from "./user";
+
+export {User} from "./user";
+import {Padlet} from "./padlet";
 import {Rating} from "./rating";
 import {Comment} from "./comment";
-export { Padlet } from "./padlet";
+
+export {Padlet} from "./padlet";
 
 export class Entrie {
 
@@ -14,7 +16,6 @@ export class Entrie {
               public content: string,
               public ratings: Rating[],
               public comments: Comment[]
-
   ) {
   }
 }

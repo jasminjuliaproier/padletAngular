@@ -16,6 +16,7 @@ export class PadletListComponent implements OnInit{
 
   constructor(private bs: PadletService, public authService: AuthenticationService) {}
 
+  // Holt alle Padlets und Entries
   ngOnInit() {
     this.bs.getPadlets().subscribe(res=>this.padlets = res);
     this.bs.getEntries().subscribe(res=>this.entries = res);

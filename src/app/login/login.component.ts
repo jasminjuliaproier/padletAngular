@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit{
     });
   }
 
+  // login methode
   login() {
     const val = this.loginForm.value;
     if (val.username && val.password) {
@@ -41,9 +42,11 @@ export class LoginComponent implements OnInit{
       });
     }
   }
+  // prüft ob user eingeloggt ist
   isLoggedIn() {
     return this.authService.isLoggedIn();
   }
+  // ausloggen
   logout() {
     this.authService.logout();
   }

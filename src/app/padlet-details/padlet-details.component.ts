@@ -12,8 +12,7 @@ import {AuthenticationService} from "../shared/authentication.service";
 @Component({
   selector: 'bs-padlet-details',
   templateUrl: './padlet-details.component.html',
-  styles: [
-  ]
+  styles: []
 })
 
 export class PadletDetailsComponent implements OnInit {
@@ -30,8 +29,8 @@ export class PadletDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public authService: AuthenticationService
-
-              ) {}
+  ) {
+  }
 
   //Speichert den Routen Parameter ID unf sucht damit ein bestimmtes Padlet
   //Entries dieses Padlets werden in den leeren Array gespeichert
@@ -40,17 +39,17 @@ export class PadletDetailsComponent implements OnInit {
   ngOnInit() {
     const params = this.route.snapshot.params;
     this.bs.findPadletByPadletID(params['id'])
-      .subscribe((p:Padlet) => {
-        this.padlet = p ;
-      this.entries = this.padlet.entries;
-      this.user = this.padlet.user;
-      this.getRatings();
-      this.getComments();
+      .subscribe((p: Padlet) => {
+        this.padlet = p;
+        this.entries = this.padlet.entries;
+        this.user = this.padlet.user;
+        this.getRatings();
+        this.getComments();
       });
   }
 
   //Holt Kommentare über die Entrie ID
-  getComments() : void {
+  getComments(): void {
     for (let entrie of this.entries) {
       this.bs.findCommentsByEntrieID(entrie.id).subscribe((res: Comment[]) => {
         entrie.comments = res;
@@ -59,13 +58,14 @@ export class PadletDetailsComponent implements OnInit {
   }
 
   //Holt Ratings über die Entrie ID
-  getRatings() : void {
-    for(let entrie of this.entries) {
+  getRatings(): void {
+    for (let entrie of this.entries) {
       this.bs.findRatingsByEntrieID(entrie.id).subscribe((res: Rating[]) => {
         entrie.ratings = res;
       })
     }
   }
+
   //Holt Ratings
   getRating(rating: number) {
     return Array(rating)
@@ -85,22 +85,24 @@ export class PadletDetailsComponent implements OnInit {
   //Confirmation- Entrie löschen?
   removeEntry(id: number) {
     if (confirm('Entrie wirklich löschen?')) {
-      this.bs.removeEntrie(id).subscribe((res: any) => this.router.navigate(['/padlets/'+ this.padlet.id], {
+      this.bs.removeEntrie(id).subscribe((res: any) => this.router.navigate(['/padlets/' + this.padlet.id], {
         relativeTo:
         this.route
       }));
     }
   }
 
+  // Aktualisiert den Kommentarwert basierend auf dem Ereignis.
   changeComment(event: Event) {
     this.comment = (event.target as HTMLInputElement).value
     console.log(this.comment)
   }
 
+  //Erstellt einen Kommentar mit der angegebenen ID.
   createComment(id: number) {
     console.log(id);
     const user_id = sessionStorage.getItem('userId');
-    if (user_id){
+    if (user_id) {
       this.bs.createComment(id, this.comment, parseInt(user_id)).subscribe((res: any) => location.reload())
     }
   }

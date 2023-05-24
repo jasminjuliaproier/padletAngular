@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Padlet} from "./shared/padlet";
-import { HttpClient } from "@angular/common/http";
-import { map } from 'rxjs/operators';
+import {Component} from '@angular/core';
+import {Padlet} from "./shared/padlet";
+import {HttpClient} from "@angular/common/http";
+import {map} from 'rxjs/operators';
 import {AuthenticationService} from "./shared/authentication.service";
 
 @Component({
@@ -11,16 +11,18 @@ import {AuthenticationService} from "./shared/authentication.service";
 
 
 export class AppComponent {
-  //padlet : any;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService) {
+  }
 
-  isLoggedIn(){
+  //Überprüft pb eingeloggt
+  isLoggedIn() {
     return this.authService.isLoggedIn();
   }
 
-  getLoginLabel(){
-    if(this.isLoggedIn()){
+  //Setzt in der Navigation Login oder Logout , je nach dem ob gerade eingeloggt oder nicht
+  getLoginLabel() {
+    if (this.isLoggedIn()) {
       return "Logout";
     } else {
       return "Login";
@@ -38,24 +40,22 @@ export class AppComponent {
 }
 
 
-    /*
-    http.get<Padlet>('http://padlet.s2010456040.student.kwmhgb.at/padlets').
-    subscribe(val => this.padlet = val);
-    */
+/*
+http.get<Padlet>('http://padlet.s2010456040.student.kwmhgb.at/padlets').
+subscribe(val => this.padlet = val);
+*/
 
 
+/*
+showList() {
+  this.listOn = true;
+  this.detailsOn = false;
+}
+showDetails(padlet: Padlet) {
+  this.padlet = padlet;
+  this.listOn = false;
+  this.detailsOn = true;
+}
 
-
-  /*
-  showList() {
-    this.listOn = true;
-    this.detailsOn = false;
-  }
-  showDetails(padlet: Padlet) {
-    this.padlet = padlet;
-    this.listOn = false;
-    this.detailsOn = true;
-  }
-
-   */
+ */
 
